@@ -12,6 +12,7 @@ COPY main/* ./main
 
 WORKDIR ./main
 RUN go get
+RUN go install github.com/swaggo/swag/cmd/swag@latest
 RUN swag init
 
 WORKDIR /app
