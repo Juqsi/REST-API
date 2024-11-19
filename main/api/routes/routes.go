@@ -7,7 +7,6 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/monitor"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
-	"github.com/gofiber/swagger"
 )
 
 func SetupRoutes() {
@@ -23,20 +22,6 @@ func SetupRoutes() {
 	middleware.Logging(app)
 	app.Use(middleware.Recovery)
 	app.Use(middleware.ResponseBuilder)
-
-	//publish swagger infos
-	//swag init in main
-	app.Get("/docs", func(c *fiber.Ctx) error {
-		filePath := "./main/docs/swagger.json"
-		return c.SendFile(filePath)
-	})
-
-	//make swagger environment
-	app.Get("/swagger/*", swagger.New(swagger.Config{
-		URL:          "/docs",
-		DeepLinking:  false,
-		DocExpansion: "none",
-	}))
 
 	//TODO add here routes without authentication like login or register
 

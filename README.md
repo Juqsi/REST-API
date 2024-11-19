@@ -1,6 +1,6 @@
 # REST API mit Go und Fiber
 
-This REST API was created with the Go web framework Fiber and serves as a template for developing RESTful web applications. The API includes basic functions for connecting to a database, adding middleware, documenting with Swagger, and managing HTTP requests. The project is divided into different folders to improve structure and maintainability.
+This REST API was created with the Go web framework Fiber and serves as a template for developing RESTful web applications. The API includes basic functions for connecting to a database, adding middleware and managing HTTP requests. The project is divided into different folders to improve structure and maintainability.
 
 ## Middleware-Funktionalität
 
@@ -32,5 +32,3 @@ You can customize and extend this template according to your requirements. Add m
 The API includes various endpoints, including:
 
 - `/monitor`: An endpoint for monitoring and checking the status of the API.
-- `/docs`: Here you can find the Swagger documentation of the API.
-- `/swagger/*`: The generated Swagger interface for interacting with the API.
