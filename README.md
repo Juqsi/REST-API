@@ -1,39 +1,36 @@
 # REST API mit Go und Fiber
 
-Diese REST API wurde mit der Go-Webframework Fiber erstellt und dient als Vorlage für die Entwicklung von RESTful Webanwendungen. Die API umfasst grundlegende Funktionen für das Verbinden mit einer Datenbank, das Hinzufügen von Middleware, die Dokumentation mit Swagger und das Management von HTTP-Anfragen.
+This REST API was created with the Go web framework Fiber and serves as a template for developing RESTful web applications. The API includes basic functions for connecting to a database, adding middleware, documenting with Swagger, and managing HTTP requests. The project is divided into different folders to improve structure and maintainability.
 
 ## Middleware-Funktionalität
 
 ### Recovery Middleware
-Die Recovery-Middleware ist eine zentrale Komponente, die die API vor Abstürzen schützt. Sie fängt Panikfälle (Panic) ab und sorgt dafür, dass die Anwendung nicht abstürzt. Im Falle eines Panikfalls gibt die Middleware einen Fehler zurück und zeichnet den Stacktrace des Panikfalls auf.
-
+The Recovery middleware is a central component that protects the API from crashes. It catches panic cases and ensures that the application does not crash. In the event of a panic, the middleware returns an error and logs the stack trace of the panic.
 ### Logging Middleware
-Die Logging-Middleware wird verwendet, um alle eingehenden Anfragen und deren Reaktionszeiten zu protokollieren. Sie gibt Informationen über den Zeitpunkt der Anfrage, den Statuscode der Antwort, die HTTP-Methode, den Pfad und eventuelle Abfrageparameter aus. Die Protokolldatei wird in "Logfile.log" gespeichert.
-
+The Logging middleware is used to log all incoming requests and their response times. It provides information about the time of the request, the status code of the response, the HTTP method, the path, and any query parameters. The log file is saved in `Logfile.log`.
 ### Authentifizierungs-Middleware
-Die Authentifizierungs-Middleware ist für die Sicherstellung der API-Sicherheit verantwortlich. Sie überprüft die Authentifizierung des Benutzers, indem sie das JWT-Token im `Authorization`-Header erwartet. Sie prüft, ob das Token im Bearer-Token-Format vorliegt und validiert das Token, um sicherzustellen, dass der Benutzer authentifiziert ist. Bei einer fehlerhaften Authentifizierung wird eine Fehlermeldung zurückgegeben, andernfalls wird der Token im Kontext gespeichert.
+The Authentication middleware is responsible for ensuring API security. It checks the user's authentication by expecting the JWT token in the `Authorization` header. It verifies that the token is in the Bearer token format and validates the token to ensure that the user is authenticated. In case of faulty authentication, an error message is returned; otherwise, the token is stored in the context.
+## Projektstruktur
+### Ordnerstruktur
+- `main`: Contains the main application and the entry point (`main.go`).
+- `main/api`: Includes the API-specific files and routes.
+- `main/api/middleware`: Contains middleware functions such as logging, recovery, and authentication.
+- `main/api/routes`: Defines the API routes and their handlers.
+- `main/database`: Includes database initialization and connection.
+- `main/utils`: Contains helper functions such as retrieving environment variables.
 
-## Verwendung
-
-### API-Endpunkte
-Die API enthält verschiedene Endpunkte, darunter:
-
-- `/monitor`: Ein Endpunkt zur Überwachung und Überprüfung des Status der API.
-
-- `/docs`: Hier finden Sie die Swagger-Dokumentation der API.
-
-- `/swagger/*`: Die generierte Swagger-Oberfläche zur Interaktion mit der API.
-
-- `/pfad`: Ein Endpunkt für POST-Anfragen, der eine Authentifizierung erfordert.
-
-- `/pfad/:para`: Ein Endpunkt für GET-Anfragen mit einem optionalen Parameter, der ebenfalls eine Authentifizierung erfordert.
-
-### Authentifizierung
-Um die geschützten Endpunkte der API (z. B. `/pfad` und `/pfad/:para`) zu verwenden, ist eine Authentifizierung erforderlich. Dies kann mit einer Bearer-Token-Authentifizierung erreicht werden. Sie können Bibliotheken wie Gocloak oder Firebase verwenden, um die Authentifizierung zu implementieren.
+### Datenbank
+The database connection (MariaDB) is initialized in `main/database/init.go`. The configuration is done via environment variables.
+### Middleware
 
 ## Anpassung
-Sie können diese Vorlage nach Ihren Anforderungen anpassen und erweitern. Fügen Sie weitere Endpunkte hinzu, ändern Sie die Middleware oder integrieren Sie zusätzliche Funktionen in die API.
+You can customize and extend this template according to your requirements. Add more endpoints, change the middleware, or integrate additional functions into the API.
 
 ---
 
-Happy coding! ✨🚀
+## API-Endpunkte
+The API includes various endpoints, including:
+
+- `/monitor`: An endpoint for monitoring and checking the status of the API.
+- `/docs`: Here you can find the Swagger documentation of the API.
+- `/swagger/*`: The generated Swagger interface for interacting with the API.

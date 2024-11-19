@@ -1,27 +1,20 @@
-FROM golang:1.20 as builder
+FROM golang:1.23.2 AS builder
 
 WORKDIR /app
 
 COPY . .
-RUN go get
+RUN go mod tidy
 
-WORKDIR ./main
-RUN go install github.com/swaggo/swag/cmd/swag@latest
-RUN swag init
+WORKDIR /app/main
+RUN go install github.com/swaggo/swag/cmd/swag@latest && swag init
 
 WORKDIR /app
-RUN go build -o name ./main/.
+RUN go build -o rest-api ./main/.
 
-FROM golang
-COPY --from=builder /app/name /app/
+FROM scratch
+COPY --from=builder /app/rest-api /app/
 COPY --from=builder /app/docs /app/
 
 EXPOSE 3000
 
-ENTRYPOINT [ "/app/name" ]
-
-
-
-#docker build . -t Container-name:latest
-#docker run -p 3000:3000 Container-name:latest
-
+ENTRYPOINT [ "/app/rest-api" ]
